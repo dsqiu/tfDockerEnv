@@ -66,6 +66,10 @@ RUN mkdir /bazel && \
     ./bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
     cd / && \
     rm -f /bazel/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh
+RUN git clone --recurse-submodules https://github.com/tensorflow/serving
+
+RUN cd serving && bazel build //tensorflow_serving/example:mnist_saved_model
+
 
 CMD ["/bin/bash"]
 
